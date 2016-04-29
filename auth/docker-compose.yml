@@ -1,0 +1,21 @@
+version: "2"
+services:
+    auth-app:
+        image: "madmis/rest"
+        build: "./rest/"
+        restart: "always"
+        ports: ["8002:9090"]
+        hostname: "auth-app"
+        labels:
+            io.rancher.container.pull_image: "always"
+            io.rancher.container.start_once: "false"
+    auth-docs:
+        image: "madmis/rest-docs"
+        build: "./rest-docs/"
+        ports: ["8001:80"]
+        hostname: "auth-docs"
+        restart: "always"
+        labels:
+            io.rancher.container.pull_image: "always"
+            io.rancher.container.start_once: "false"
+

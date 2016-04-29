@@ -1,0 +1,186 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample of auth REST application",
+        "version": "1.0.0",
+        "title": "REST Go Auth"
+    },
+    "host": "auth-app:8080",
+    "basePath": "/api",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "Get users list"
+                ],
+                "summary": "Get users list",
+                "description": "Get users list",
+                "operationId": "getUsersList",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "List of users"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "Register / Create user"
+                ],
+                "summary": "Create user",
+                "description": "Create user",
+                "operationId": "register",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "name",
+                        "description": "User name",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/ComplexModel"
+                        }
+                    },
+                    {
+                        "in": "formData",
+                        "name": "email",
+                        "description": "User email",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/ComplexModel"
+                        }
+                    },
+                    {
+                        "in": "formData",
+                        "name": "password",
+                        "description": "User password",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/ComplexModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "User created"
+                    },
+                    "400": {
+                        "description": "User with same email exists"
+                    },
+                    "405": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Get Access Token"
+                ],
+                "summary": "Get Access Token",
+                "description": "Get Access Token",
+                "operationId": "getAccessToken",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "email",
+                        "description": "Email",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/ComplexModel"
+                        }
+                    },
+                    {
+                        "in": "formData",
+                        "name": "password",
+                        "description": "Password",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/ComplexModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Access token"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "security": []
+            }
+        },
+        "/profile": {
+            "get": {
+                "tags": [
+                    "Get user profile"
+                ],
+                "summary": "Get user profile",
+                "description": "Get user profile",
+                "operationId": "getUserProfile",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "Bearer {token}",
+                        "required": true,
+                        "type": "string",
+                        "schema": {
+                            "$ref": "#/definitions/ComplexModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Authenticated user profile"
+                    }
+                },
+                "security": []
+            }
+        }
+    },
+    "securityDefinitions": {
+        "auth_token": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}
